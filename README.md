@@ -1,7 +1,8 @@
-# 🌐 ASON AI Core Service
+# 🌐 AONS CODE — AI-Powered Code Editor
 
 🚀 **Overview**  
-ASON AI is a powerful AI-driven platform designed to revolutionize content creation, task automation, and intelligent interactions. From generating high-quality audio and video to engaging in prompt-based AI conversations and deploying specialized AI agents, ASON AI brings a wide array of advanced artificial intelligence technologies into a single, user-friendly platform.
+AONS CODE is an AI-powered VS Code–like editor designed to supercharge developer productivity. With advanced AI features, context-aware code assistance, and automated workflows, AONS CODE transforms coding, design-to-code conversion, and debugging into an effortless experience.
+
 
 **New Feature:** Claude AI Integration ✅
 
