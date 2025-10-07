@@ -2,16 +2,13 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync.js';
 import sendResponse from '../../../shared/sendResponse.js';
 import validatePromptRequest from '../../../shared/validatePromptRequest.js';
-import { deepseekServices } from './dyad.service.js';
+import { ClaudeServices } from './dyad.service.js';
 
-const DeepseekAiGetResponse = catchAsync(async (req, res) => {
+
+const ClaudeAiGetResponse = catchAsync(async (req, res) => {
   const { prompt, userId, sessionId } = await validatePromptRequest(req);
 
-  const result = await deepseekServices.deepseekResponseService(
-    prompt,
-    userId,
-    sessionId,
-  );
+  const result = await ClaudeServices.claudeResponseService(prompt, userId, sessionId )
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -21,6 +18,6 @@ const DeepseekAiGetResponse = catchAsync(async (req, res) => {
   });
 });
 
-export const DeepseekAiController = {
-  DeepseekAiGetResponse,
+export const ClaudeAiController = {
+  ClaudeAiGetResponse,
 };

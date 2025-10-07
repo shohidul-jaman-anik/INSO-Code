@@ -1,14 +1,14 @@
 import express from 'express';
+import { ClaudeAiController } from './dyad.controller.js';
 import { ENUM_USER_ROLE } from '../../../shared/enum.js';
 import auth from '../../middlewares/auth/auth.js';
-import { DeepseekAiController } from './dyad.controller.js';
 
 const router = express.Router();
 
 router.post(
   '/get-response',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
-  DeepseekAiController.DeepseekAiGetResponse,
+  ClaudeAiController.ClaudeAiGetResponse,
 );
 
-export const deepseekAiRoutes = router;
+export const dyadAiRoutes = router;

@@ -14,7 +14,7 @@ router
   .get(auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER), authController.getUser); // user with id
 
 router.route('/register').post(
-  createRateLimiter(5, 2),
+  // createRateLimiter(5, 2),
   // validateRequest(AuthValidation.UserValidationSchema),
   authController.register,
 );

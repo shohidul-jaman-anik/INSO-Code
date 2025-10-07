@@ -16,6 +16,7 @@
   "author": "Shohidul-Jaman-Anik",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.65.0",
     "@apollo/server": "^4.10.4",
     "@composio/core": "^0.1.21",
     "@composio/langchain": "^0.1.21",
