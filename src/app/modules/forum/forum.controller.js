@@ -61,7 +61,7 @@ module.exports.getForum = async (req, res) => {
 
 module.exports.getForumById = async (req, res) => {
   const { id } = req.params;
-  logger.info(id, 'blog idddd');
+  // logger.info(id, 'blog idddd');
   try {
     const result = await getForumServiceById(id);
     res.status(200).json({
@@ -81,7 +81,7 @@ module.exports.getForumById = async (req, res) => {
 
 module.exports.getForumByEmail = async (req, res) => {
   const { email } = req.params;
-  logger.info(email, 'blog email');
+  // logger.info(email, 'blog email');
   try {
     const result = await getForumServiceByEmail(email);
     res.status(200).json({
@@ -113,7 +113,7 @@ exports.updateForum = async (req, res) => {
       message: "Forum couldn't Update Successfully",
       error: error.message,
     });
-    logger.info(error, "error");
+    // logger.info(error, "error");
   }
 };
 
@@ -139,7 +139,7 @@ exports.deleteForum = async (req, res) => {
       message: "Forum couldn't Delete Successfully",
       error: error.message,
     });
-    logger.info(error, "error");
+    // logger.info(error, "error");
   }
 };
 
@@ -229,6 +229,6 @@ exports.deleteComment = async (req, res) => {
       message: "Blog couldn't Delete Successfully",
       error: error.message,
     });
-    logger.info(error, "error");
+    // logger.info(error, "error");
   }
 };

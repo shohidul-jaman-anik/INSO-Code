@@ -112,10 +112,9 @@ import router from './src/app/routes/index.js';
 // import { logger } from './src/shared/logger';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import passport from 'passport';
 import config from './config/index.js';
 import './src/app/middlewares/resetUsage/resetUsage.js';
-import { logger } from './src/shared/logger.js';
+// import { logger } from './src/shared/logger.js';
 
 // Load environment variables
 dotenv.config();
@@ -139,7 +138,7 @@ app.use(
       'https://www.asonai.com',
       'https://ason-web.netlify.app',
       'http://localhost:3000',
-      'http://localhost:3100'
+      'http://localhost:3100',
     ],
     credentials: true,
   }),
@@ -171,7 +170,7 @@ app.use(
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
       blockAllMixedContent: [],
-        frameAncestors: ["'self'", 'http://localhost:3000'], // allow iframe from frontend
+      frameAncestors: ["'self'", 'http://localhost:3000'], // allow iframe from frontend
     },
   }),
 );
@@ -194,12 +193,11 @@ app.use((req, res, next) => {
 // MongoDB connection
 mongoose
   .connect(config.database_local)
-  .then(() => logger.info('✅ Database connection successfully'))
+  .then(() => console.log('✅ Database connection successfully'))
   .catch(err => {
-    logger.error('❌ Error connecting to the database:', err);
+    console.log('❌ Error connecting to the database:', err);
     process.exit(1); // Exit the application on database connection error
   });
-
 
 // API routes
 app.use('/api/v1', router);
@@ -229,7 +227,7 @@ app.use((req, res) => {
 // Start server
 const port = config.port || 8080;
 app.listen(port, () => {
-  logger.info(`App is running on port ${port}`);
+  console.log(`App is running on port ${port}`);
 });
 
 export default app;

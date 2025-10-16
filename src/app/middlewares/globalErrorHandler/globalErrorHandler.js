@@ -8,7 +8,8 @@ import { errorlogger } from '../../../shared/logger.js';
 
 const globalErrorHandler = (error, req, res, next) => {
   if (config.env === 'development') {
-    logger.info('🟢 globalErrorHandler ~', error);
+    // logger.info('🟢 globalErrorHandler ~', error);
+    console.log('🟢 globalErrorHandler ~', error);
   } else {
     errorlogger.error('🔴 globalErrorHandler ~', error);
   }

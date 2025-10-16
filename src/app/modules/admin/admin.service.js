@@ -1,4 +1,4 @@
-import { logger } from '../../../shared/logger.js';
+// import { logger } from '../../../shared/logger.js';
 import paginationHelpers from '../../helpers/paginationHelpers.js';
 import UserModel from '../auth/auth.model.js';
 import SubscriptionModel from '../payment/payment.model.js';
@@ -84,7 +84,7 @@ const getAllBuyerServices = async () => {
 
 const getSellerServiceById = async id => {
   const result = await UserModel.findOne({ _id: id });
-  logger.info(result);
+  // logger.info(result);
   return result;
 };
 

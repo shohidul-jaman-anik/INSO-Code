@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import config from '../../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
 import catchAsync from '../../../shared/catchAsync.js';
-import { logger } from '../../../shared/logger.js';
+// import { logger } from '../../../shared/logger.js';
 import sendResponse from '../../../shared/sendResponse.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
 import UserModel from './auth.model.js';
@@ -21,7 +21,7 @@ const mailgun = new Mailgun(formData);
 
 const register = catchAsync(async (req, res) => {
   const result = await authService.registerService(req);
-  logger.info(result, 'resultttttttttttttttt');
+  // logger.info(result, 'resultttttttttttttttt');
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -50,7 +50,7 @@ const login = catchAsync(async (req, res) => {
   // logger.info(req.body, 'data login');
   const { email, password } = req.body;
   const result = await authService.loginService(email, password);
-  logger.info(result, 'resultttttttttttttttt');
+  // logger.info(result, 'resultttttttttttttttt');
 
   const { refreshToken, ...others } = result;
 
@@ -404,7 +404,7 @@ const sendMailWithMailGunController = async (req, res) => {
       html: '<h1>Testing some Mailgun awesomeness!</h1>',
     });
     res.status(201).send(result);
-    logger.info(result); // logs response data
+    // logger.info(result); // logs response data
   } catch (error) {
     console.error(error); // logs any error
   }

@@ -5,7 +5,7 @@ import httpStatus from 'http-status';
 import { BufferMemory } from 'langchain/memory';
 import mongoose from 'mongoose';
 import ApiError from '../../../errors/ApiError.js';
-import { logger } from '../../../shared/logger.js';
+// import { logger } from '../../../shared/logger.js';
 import UserModel from '../auth/auth.model.js';
 import Llama from './dyad.model.js';
 
@@ -95,7 +95,7 @@ const claudeResponseService = async (prompt, userId, sessionId) => {
     console.log('Claude Response Payload:', payload);
     return payload;
   } catch (error) {
-    logger.error('Error in claudeResponseService:', error);
+    // logger.error('Error in claudeResponseService:', error);
     throw new ApiError(
       httpStatus.INTERNAL_SERVER_ERROR,
       'Claude service failed.',
@@ -159,7 +159,7 @@ const deleteOneLlamaAiSession = async objectId => {
       { $pull: { llamaAiSessions: objectId } },
     );
 
-    logger.info(userUpdateResult, 'userUpdateResult userUpdateResult');
+    // logger.info(userUpdateResult, 'userUpdateResult userUpdateResult');
 
     // Check if the user model was successfully updated
     if (userUpdateResult.modifiedCount === 1) {

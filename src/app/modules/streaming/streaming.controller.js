@@ -3,7 +3,7 @@ const { sendResponse } = require('../../../shared/sendResponse');
 const { catchAsync } = require('../../../shared/catchAsync');
 // const { AccessToken } = require('livekit-server-sdk');
 const { livekit_secret_key, livekit_api_key } = require('../../../../config');
-const { logger } = require('../../../shared/logger');
+// const { logger } = require('../../../shared/logger');
 
 
 const generateRandomParticipantName = (length) => {
@@ -28,7 +28,7 @@ module.exports.authStreamingController = catchAsync(async (req, res) => {
 
     const participantName = generateRandomParticipantName(8);
 
-    logger.info(participantName, 'participantName participantName')
+    // logger.info(participantName, 'participantName participantName')
     const at = new AccessToken(livekit_api_key, livekit_secret_key, {
         identity: participantName,
         // token to expire after 10 minutes
@@ -38,7 +38,7 @@ module.exports.authStreamingController = catchAsync(async (req, res) => {
 
 
     const result = await at.toJwt();
-    logger.info(result, 'resulttttttttt')
+    // logger.info(result, 'resulttttttttt')
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,

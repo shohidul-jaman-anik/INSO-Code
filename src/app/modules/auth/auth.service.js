@@ -3,7 +3,7 @@ import httpStatus from 'http-status';
 import mongoose from 'mongoose';
 import config from '../../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
-import { logger } from '../../../shared/logger.js';
+// import { logger } from '../../../shared/logger.js';
 import { jwtHelpers } from '../../helpers/jwtHelpers.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
 import UserModel from './auth.model.js';
@@ -199,7 +199,7 @@ const updateUserService = async (userId, data) => {
 
   // Update the data
   const result = await UserModel.updateOne({ _id: userId }, updateData);
-  logger.info(result, 'result');
+  // logger.info(result, 'result');
   return result;
 };
 

@@ -1,16 +1,14 @@
 import moment from 'moment';
 import mongoose from 'mongoose';
 import Stripe from 'stripe';
-import winston from 'winston';
 import config from '../../../../config/index.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
 import UserModel from '../auth/auth.model.js';
 import SubscriptionModel from './payment.model.js';
 import { purchasePlanTemplate } from './payment.utils.js';
-import { logger } from '../../../shared/logger.js';
+// import { logger } from '../../../shared/logger.js';
 
 const stripe = new Stripe(config.stripe.stripe_secret_key);
-
 
 const createCheckoutSessionService = async (user, plan) => {
   if (!['explore', 'analyze', 'execute', 'command'].includes(plan.plan_name)) {
@@ -42,7 +40,6 @@ const createCheckoutSessionService = async (user, plan) => {
     // success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
     success_url: `${config.client_url}`,
     cancel_url: `${config.client_url}`,
-
   });
 
   return session.url;
@@ -53,7 +50,7 @@ const handleWebhookService = async (req, res) => {
   const sig = req.headers['stripe-signature'];
 
   if (!sig || !endpointSecret) {
-    logger.error('Missing Stripe signature or webhook secret');
+    // logger.error('Missing Stripe signature or webhook secret');
     return res
       .status(400)
       .send('Webhook Error: Missing Stripe Signature or Secret');
@@ -62,9 +59,9 @@ const handleWebhookService = async (req, res) => {
   let event;
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-    logger.info('Webhook event received', { eventType: event.type });
+    // logger.info('Webhook event received', { eventType: event.type });
   } catch (err) {
-    logger.error('Webhook signature verification failed', {
+    console.log('Webhook signature verification failed', {
       message: err.message,
     });
     return res
@@ -76,18 +73,18 @@ const handleWebhookService = async (req, res) => {
 
   try {
     session.startTransaction();
-    logger.info('Processing event', { eventType: event.type });
+    // logger.info('Processing event', { eventType: event.type });
 
     if (event.type === 'checkout.session.completed') {
       const stripeSession = event.data.object;
-      logger.info('Checkout session data', { sessionId: stripeSession.id });
+      // logger.info('Checkout session data', { sessionId: stripeSession.id });
 
       // Validate metadata
       if (
         !stripeSession.metadata.plan_name ||
         !stripeSession.metadata.duration
       ) {
-        logger.error('Missing plan_name or duration in session metadata', {
+        console.log('Missing plan_name or duration in session metadata', {
           metadata: stripeSession.metadata,
         });
         throw new Error('Invalid session metadata');
@@ -98,7 +95,7 @@ const handleWebhookService = async (req, res) => {
         email: stripeSession.customer_email,
       }).session(session);
       if (!user) {
-        logger.warn('No user found', { email: stripeSession.customer_email });
+        // logger.warn('No user found', { email: stripeSession.customer_email });
         throw new Error('User not found');
       }
 
@@ -107,7 +104,7 @@ const handleWebhookService = async (req, res) => {
         transactionId: stripeSession.id,
       }).session(session);
       if (existingSubscription) {
-        logger.warn('Subscription already exists', {
+        console.log('Subscription already exists', {
           transactionId: stripeSession.id,
         });
         await session.commitTransaction();
@@ -128,7 +125,7 @@ const handleWebhookService = async (req, res) => {
             invoiceUrl = invoice.hosted_invoice_url;
           }
         } catch (error) {
-          logger.error('Error retrieving invoice', { message: error.message });
+          console.log('Error retrieving invoice', { message: error.message });
         }
       }
 
@@ -146,7 +143,7 @@ const handleWebhookService = async (req, res) => {
       // Save subscription
       const newSubscription = new SubscriptionModel(subscriptionData);
       await newSubscription.save({ session });
-      logger.info('Subscription saved', {
+      console.log('Subscription saved', {
         subscriptionId: newSubscription._id,
       });
 
@@ -161,7 +158,7 @@ const handleWebhookService = async (req, res) => {
         invoiceUrl, // Added invoiceUrl
       };
       await user.save({ session });
-      logger.info('User updated', { email: user.email });
+      // logger.info('User updated', { email: user.email });
 
       // Send email confirmation
       try {
@@ -171,16 +168,16 @@ const handleWebhookService = async (req, res) => {
           newSubscription,
         );
         await sendMailWithMailGun(mailData);
-        logger.info('Confirmation email sent', { email: user.email });
+        // logger.info('Confirmation email sent', { email: user.email });
       } catch (emailError) {
-        logger.error('Failed to send confirmation email', {
+        console.log('Failed to send confirmation email', {
           email: user.email,
           message: emailError.message,
         });
       }
 
       await session.commitTransaction();
-      logger.info('Subscription created and user updated successfully', {
+      console.log('Subscription created and user updated successfully', {
         userId: user._id,
       });
     }
@@ -202,13 +199,13 @@ const handleWebhookService = async (req, res) => {
           user.isSubscribed = false;
           user.subscription = null;
           await user.save({ session });
-          logger.info('User subscription status updated', {
+          console.log('User subscription status updated', {
             email: user.email,
           });
         }
 
         await session.commitTransaction();
-        logger.info('Subscription marked as expired', {
+        console.log('Subscription marked as expired', {
           transactionId: subscription.id,
         });
       }
@@ -216,7 +213,7 @@ const handleWebhookService = async (req, res) => {
 
     res.status(200).send('Webhook processed successfully');
   } catch (error) {
-    logger.error('Error processing webhook', {
+    console.log('Error processing webhook', {
       message: error.message,
       stack: error.stack,
     });
