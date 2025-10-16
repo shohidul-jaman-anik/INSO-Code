@@ -81,7 +81,6 @@
     "passport-slack": "^0.0.7",
     "passport-twitter-oauth2": "^2.1.1",
     "puppeteer": "^24.16.1",
-    "redis": "^5.5.6",
     "serper": "^1.0.6",
     "socket.io": "^4.7.4",
     "stripe": "^14.13.0",

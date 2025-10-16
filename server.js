@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import config from './config/index.js';
 import app from './index.js'; // Make sure this exists and exports an Express app
 import { errorlogger, logger } from './src/shared/logger.js';
-import { RedisClient } from './src/shared/redis.js';
+// import { RedisClient } from './src/shared/redis.js';
 
 process.on('uncaughtException', error => {
   errorlogger.error('Uncaught Exception detected:', error);
@@ -15,7 +15,7 @@ mongoose.set('strictQuery', true);
 mongoose.set('bufferCommands', false);
 async function main() {
   try {
-    await RedisClient.connect();
+    // await RedisClient.connect();
     logger.info('✅ Redis is connected successfully');
 
     await mongoose.connect(config.database_local);
