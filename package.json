@@ -21,7 +21,7 @@
     "@apollo/server": "^4.10.4",
     "@composio/core": "^0.1.21",
     "@composio/langchain": "^0.1.21",
-    "@elastic/elasticsearch": "^9.0.1",
+    "@elastic/elasticsearch": "^8.19.1",
     "@getzep/zep-js": "^2.0.2",
     "@google/generative-ai": "^0.22.0",
     "@langchain/community": "^0.3.28",
