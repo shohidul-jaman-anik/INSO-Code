@@ -135,7 +135,7 @@ app.use(
   cors({
     origin: [
       'https://inso-code.netlify.app',
-      'https://www.insocode.com/',
+      'https://www.insocode.com',
       'http://localhost:3000',
       'http://localhost:3100',
     ],
@@ -165,7 +165,14 @@ app.use(
       styleSrc: ["'self'", "'unsafe-inline'", 'fonts.googleapis.com'],
       fontSrc: ["'self'", 'fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:'],
-      connectSrc: ["'self'"],
+      connectSrc: [
+        "'self'",
+        'https://inso-code.netlify.app',
+        'https://www.insocode.com',
+        'https://insocode.com',
+        'http://localhost:3000',
+        'http://localhost:3100',
+      ],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
       blockAllMixedContent: [],
