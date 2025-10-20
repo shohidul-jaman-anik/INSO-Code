@@ -1,16 +1,13 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync.js';
 import sendResponse from '../../../shared/sendResponse.js';
-// import validatePromptRequest from '../../../shared/validatePromptRequest.js';
-import { randomUUID } from 'crypto';
+import validatePromptRequest from '../../../shared/validatePromptRequest.js';
 import { ClaudeServices } from './dyad.service.js';
 
 const ClaudeAiGetResponse = catchAsync(async (req, res) => {
-  const sessionId = req.body?.sessionId || randomUUID();
-  const { userId, prompt } = req.body;
-
-  console.log(userId, 'userId from body in controller');
-  // const { prompt, sessionId } = await validatePromptRequest(req);
+  // const sessionId = req.body?.sessionId || randomUUID();
+  // const { userId, prompt } = req.body;
+  const { prompt, userId, sessionId } = await validatePromptRequest(req);
 
   const result = await ClaudeServices.claudeResponseService(
     prompt,
@@ -27,9 +24,8 @@ const ClaudeAiGetResponse = catchAsync(async (req, res) => {
 });
 
 const LlamaAiGetResponseFromDbByUserId = catchAsync(async (req, res) => {
-  // const id = req.params?.userId;
-  // logger.info(id, 'session');
-  const userId = req.params.userId;
+  const userId = req.user?._id;
+
   console.log(userId, 'userId from token in controller');
   const responseData =
     await ClaudeServices.getAiResponsesByUserIdService(userId);
@@ -76,8 +72,7 @@ const deleteOneAiSession = catchAsync(async (req, res) => {
 });
 
 const deleteAllAiSessions = catchAsync(async (req, res) => {
-  // const id = req.params?.userId;
-  const userId = req.body.userId;
+  const userId = req.user?._id;
   console.log(userId, 'userId from token in controller');
   const result = await ClaudeServices.deleteAllAiSessionsService(userId);
   // logger.info(result, 'resultttt');
