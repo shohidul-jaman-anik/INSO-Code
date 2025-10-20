@@ -134,9 +134,8 @@ app.use(
 app.use(
   cors({
     origin: [
-      'https://asonai.com',
-      'https://www.asonai.com',
-      'https://ason-web.netlify.app',
+      'https://inso-code.netlify.app',
+      'https://www.insocode.com/',
       'http://localhost:3000',
       'http://localhost:3100',
     ],
