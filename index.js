@@ -121,11 +121,6 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Use body-parser raw() FIRST for Stripe webhook before any JSON parsing
-app.use(
-  '/api/v1/subscription/webhook',
-  express.raw({ type: 'application/json' }),
-);
 
 // app.use(cors({
 //   origin: '*',
@@ -141,6 +136,12 @@ app.use(
     ],
     credentials: true,
   }),
+);
+
+// ✅ Use body-parser raw() FIRST for Stripe webhook before any JSON parsing
+app.use(
+  '/api/v1/subscription/webhook',
+  express.raw({ type: 'application/json' }),
 );
 
 // Middleware
