@@ -134,8 +134,8 @@ app.use(
 app.use(
   cors({
     origin: [
-      'https://inso-code.netlify.app',
       'https://www.insocode.com',
+      'https://inso-code.netlify.app',
       'http://localhost:3000',
       'http://localhost:3100',
     ],
@@ -170,6 +170,8 @@ app.use(
         'https://inso-code.netlify.app',
         'https://www.insocode.com',
         'https://insocode.com',
+        'https://www.insotechnology.com',
+        'https://insotechnology.com',
         'http://localhost:3000',
         'http://localhost:3100',
       ],
