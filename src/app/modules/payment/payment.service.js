@@ -11,7 +11,7 @@ import { purchasePlanTemplate } from './payment.utils.js';
 const stripe = new Stripe(config.stripe.stripe_secret_key);
 
 const createCheckoutSessionService = async (user, plan) => {
-  if (!['explore', 'analyze', 'execute', 'command'].includes(plan.plan_name)) {
+  if (!['launch', 'build', 'scale', 'command'].includes(plan.plan_name)) {
     throw new Error('Invalid plan name');
   }
   if (!['month', 'year'].includes(plan.duration)) {

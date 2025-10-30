@@ -10,7 +10,7 @@ AONS CODE is an AI-powered VS Code–like editor designed to supercharge develop
 - Session-based memory for seamless multi-turn conversations
 - Easily integrated into Node.js workflows
 
-Visit our website for more information: [ASON AI Website](https://www.asonai.com/)
+Visit our website for more information: [ASON AI Website](https://www.insocode.com)
 
 ---
 

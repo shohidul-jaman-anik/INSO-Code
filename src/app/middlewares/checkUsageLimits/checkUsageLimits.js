@@ -1,9 +1,9 @@
 import SubscriptionModel from '../../modules/payment/payment.model.js';
 
 const limits = {
-  explore: { prompts: 10, images: 10 },
-  analyze: { prompts: 250, images: 25 },
-  execute: { prompts: 500, images: 50 },
+  launch: { prompts: 10, images: 10 },
+  build: { prompts: 250, images: 25 },
+  scale: { prompts: 500, images: 50 },
   command: { prompts: 1000, images: 100 },
 };
 
