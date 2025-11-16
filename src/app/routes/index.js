@@ -5,9 +5,11 @@ import { subscriptionRoutes } from '../modules/payment/payment.route.js';
 import { adminRoutes } from '../modules/admin/admin.route.js';
 import { automationRoutes } from '../modules/automations/automations.route.js';
 import { dyadAiRoutes } from '../modules/dyad/dyad.route.js';
+import { geminiOpenMemoryAiRoutes } from '../modules/geminiOpenMemory/geminiOpenMemo.route.js';
 import { llamaindexRoutes } from '../modules/llamaindex/llamaindex.route.js';
 import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
+import { cyberdeskRoutes } from '../modules/cyberdesk/cyberdesk.route.js';
 // import { flowiseRoutes } from '../modules/flowise/flowise.route.js';
 
 const router = express.Router();
@@ -38,8 +40,16 @@ const moduleRoutes = [
     route: subscriptionRoutes,
   },
   {
+    path: '/cyberdesk',
+    route: cyberdeskRoutes,
+  },
+  {
     path: '/rag-system',
     route: llamaindexRoutes,
+  },
+  {
+    path: '/gemini',
+    route: geminiOpenMemoryAiRoutes,
   },
   {
     path: '/dyad/claude',

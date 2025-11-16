@@ -43,7 +43,7 @@ const confirmEmail = catchAsync(async (req, res) => {
   }
 
   // If no error, redirect to the URL
-  res.status(302).redirect('https://www.asonai.com');
+  res.status(302).redirect('https://www.insocode.com');
 });
 
 const login = catchAsync(async (req, res) => {
