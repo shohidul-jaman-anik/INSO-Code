@@ -41,6 +41,7 @@ export default {
   gemini_secret_key: process.env.GEMINI_API_KEY,
   deepseek_secret_key: process.env.DEEPSEEK_API_KEY,
   openai_secret_key: process.env.OPENAI_API_KEY,
+  cyberdesk_api_key: process.env.CYBERDESK_API_KEY,
   stripe: {
     stripe_secret_key: process.env.STRIPE_SECRET_KEY,
     stripe_webhook_secret_key: process.env.STRIPE_WEBHOOK_SECRET,

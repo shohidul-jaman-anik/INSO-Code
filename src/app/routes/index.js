@@ -5,7 +5,7 @@ import { subscriptionRoutes } from '../modules/payment/payment.route.js';
 import { adminRoutes } from '../modules/admin/admin.route.js';
 import { automationRoutes } from '../modules/automations/automations.route.js';
 import { dyadAiRoutes } from '../modules/dyad/dyad.route.js';
-import { geminiOpenMemoryAiRoutes } from '../modules/geminiOpenMemory/geminiOpenMemo.route.js';
+// import { geminiOpenMemoryAiRoutes } from '../modules/geminiOpenMemory/geminiOpenMemo.route.js';
 import { llamaindexRoutes } from '../modules/llamaindex/llamaindex.route.js';
 import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
@@ -47,10 +47,10 @@ const moduleRoutes = [
     path: '/rag-system',
     route: llamaindexRoutes,
   },
-  {
-    path: '/gemini',
-    route: geminiOpenMemoryAiRoutes,
-  },
+  // {
+  //   path: '/gemini',
+  //   route: geminiOpenMemoryAiRoutes,
+  // },
   {
     path: '/dyad/claude',
     route: dyadAiRoutes,
