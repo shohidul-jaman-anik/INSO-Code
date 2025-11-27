@@ -41,7 +41,7 @@ const claudeResponseService = async (prompt, userId, sessionId) => {
     // Claude Sonnet 4.5 API call
     const completion = await anthropic.messages.create({
       model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 1500,
+      max_tokens: 4096,
       messages: [...messages, { role: 'user', content: prompt }],
     });
 

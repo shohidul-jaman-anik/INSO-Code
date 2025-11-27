@@ -28,6 +28,7 @@
     "@langchain/groq": "^0.1.3",
     "@langchain/openai": "^0.4.9",
     "@llamaindex/openai": "^0.4.5",
+    "@modelcontextprotocol/sdk": "^1.23.0",
     "@tavily/core": "^0.0.2",
     "ai": "^4.3.16",
     "autocannon": "^7.15.0",
