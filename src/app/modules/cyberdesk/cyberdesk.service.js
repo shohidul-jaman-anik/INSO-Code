@@ -1,17 +1,18 @@
 import { createCyberdeskClient } from 'cyberdesk';
 import httpStatus from 'http-status';
-import ApiError from '../../../errors/ApiError.js';
 import config from '../../../../config/index.js';
+import ApiError from '../../../errors/ApiError.js';
 
 const cyberdesk = createCyberdeskClient({
   apiKey: config.cyberdesk_api_key,
 });
 
 // Launch a new desktop
-const launchDesktop = async () => {
+const launchDesktops = async () => {
   const result = await cyberdesk.launchDesktop({
-    body: { timeout_ms: 600000 },
+    timeout_ms: 600000,
   });
+
   console.log('Cyberdesk launch result:', result);
   console.log('❗Cyberdesk error object:', result.error);
 
@@ -74,11 +75,9 @@ const terminateDesktop = async desktopId => {
 };
 
 export const cyberdeskService = {
-  launchDesktop,
+  launchDesktops,
   getDesktopInfo,
   clickMouse,
   executeBash,
   terminateDesktop,
 };
-
-

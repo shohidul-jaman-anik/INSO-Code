@@ -119,7 +119,7 @@ import './src/app/middlewares/resetUsage/resetUsage.js';
 // Load environment variables
 dotenv.config();
 
-const app = express();
+const app = express()
 
 
 // app.use(cors({

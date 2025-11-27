@@ -2,7 +2,7 @@ import { cyberdeskService } from './cyberdesk.service.js';
 
 const launch = async (req, res) => {
   try {
-    const result = await cyberdeskService.launchDesktop();
+    const result = await cyberdeskService.launchDesktops();
     res.status(200).json({ message: 'Desktop launched', data: result });
   } catch (err) {
     res.status(500).json({ error: err.message });
