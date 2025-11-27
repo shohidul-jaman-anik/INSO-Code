@@ -10,6 +10,7 @@ import { llamaindexRoutes } from '../modules/llamaindex/llamaindex.route.js';
 import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
 import { cyberdeskRoutes } from '../modules/cyberdesk/cyberdesk.route.js';
+import { codeEditorRoutes } from '../modules/codeEditor/codeEditor.route.js';
 // import { flowiseRoutes } from '../modules/flowise/flowise.route.js';
 
 const router = express.Router();
@@ -47,10 +48,10 @@ const moduleRoutes = [
     path: '/rag-system',
     route: llamaindexRoutes,
   },
-  // {
-  //   path: '/gemini',
-  //   route: geminiOpenMemoryAiRoutes,
-  // },
+  {
+    path: '/code-editor',
+    route: codeEditorRoutes,
+  },
   {
     path: '/dyad/claude',
     route: dyadAiRoutes,

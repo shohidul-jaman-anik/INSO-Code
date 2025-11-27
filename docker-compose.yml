@@ -1,3 +1,48 @@
+# services:
+#   inso_code_app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile.app
+#     container_name: inso_code_app
+#     env_file:
+#       - .env
+#     ports:
+#       - '5100:5100'
+#     volumes:
+#       - .:/app/inso-code-service:cached
+#       - node_modules:/app/inso-code-service/node_modules
+#     networks:
+#       - inso_code_network
+#     restart: unless-stopped
+
+#   inso_code_editor:
+#     image: codercom/code-server:latest
+#     container_name: inso_code_editor
+#     environment:
+#     - PASSWORD=${CODE_SERVER_PASSWORD:-mySecret123}
+#     - TZ=Asia/Dhaka
+#     ports:
+#     - '8080:5100'
+#     command: ["--bind-addr", "0.0.0.0:5100", "/home/coder/project"]
+#     user: root
+#     volumes:
+#     - .:/home/coder/project:rw
+#     - code_server_data:/home/coder/.local/share/code-server:rw
+#     networks:
+#     - inso_code_network
+#     restart: unless-stopped
+
+
+# networks:
+#   inso_code_network:
+#     driver: bridge
+
+# volumes:
+#   node_modules:
+#   code_server_data:
+
+
+
 services:
   inso_code_app:
     build:
@@ -19,19 +64,29 @@ services:
     image: codercom/code-server:latest
     container_name: inso_code_editor
     environment:
-    - PASSWORD=${CODE_SERVER_PASSWORD:-mySecret123}
-    - TZ=Asia/Dhaka
+      - PASSWORD=${CODE_SERVER_PASSWORD:-mySecret123}
+      - TZ=Asia/Dhaka
     ports:
-    - '8080:5100'
-    command: ["--bind-addr", "0.0.0.0:5100", "/home/coder/project"]
+      - '8080:8080'
+    command:
+      [
+        "--bind-addr",
+        "0.0.0.0:8080",
+        "--auth",
+        "password",
+        # OPEN BLANK — NO PROJECT
+        "."
+      ]
     user: root
-    volumes:
-    - .:/home/coder/project:rw
-    - code_server_data:/home/coder/.local/share/code-server:rw
-    networks:
-    - inso_code_network
-    restart: unless-stopped
 
+    # REMOVE project mount to stop auto-loading!
+    volumes:
+      - code_server_data:/home/coder/.local/share/code-server
+      - /home/anik/projects:/user-project
+      
+    networks:
+      - inso_code_network
+    restart: unless-stopped
 
 networks:
   inso_code_network:
