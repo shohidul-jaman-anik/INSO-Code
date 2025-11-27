@@ -81,7 +81,8 @@ services:
 
     # REMOVE project mount to stop auto-loading!
     volumes:
-       - "C:/:/user-projects"
+      #  - "C:/:/user-projects"
+       - /user-projects:/user-projects
        - code_server_data:/home/coder/.local/share/code-server
 
     networks:
