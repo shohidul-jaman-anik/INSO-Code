@@ -81,9 +81,9 @@ services:
 
     # REMOVE project mount to stop auto-loading!
     volumes:
-      - code_server_data:/home/coder/.local/share/code-server
-      - /home/anik/projects:/user-project
-      
+       - "C:/:/user-projects"
+       - code_server_data:/home/coder/.local/share/code-server
+
     networks:
       - inso_code_network
     restart: unless-stopped
