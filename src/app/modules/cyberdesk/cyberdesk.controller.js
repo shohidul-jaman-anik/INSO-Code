@@ -1,51 +1,61 @@
+import httpStatus from 'http-status';
+import catchAsync from '../../../shared/catchAsync.js';
+import sendResponse from '../../../shared/sendResponse.js';
 import { cyberdeskService } from './cyberdesk.service.js';
 
-const launch = async (req, res) => {
-  try {
-    const result = await cyberdeskService.launchDesktops();
-    res.status(200).json({ message: 'Desktop launched', data: result });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+const launch = catchAsync(async (req, res, next) => {
+  const result = await cyberdeskService.launchDesktops();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Desktop Launched successfully.',
+    data: result,
+  });
+});
 
-const info = async (req, res) => {
-  try {
-    const result = await cyberdeskService.getDesktopInfo(req.params.id);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+const info = catchAsync(async (req, res, next) => {
+  const result = await cyberdeskService.getDesktopInfo(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Desktop Info Processed Successfully.',
+    data: result,
+  });
+});
 
-const click = async (req, res) => {
+const click = catchAsync(async (req, res, next) => {
   const { x, y } = req.body;
-  try {
-    const result = await cyberdeskService.clickMouse(req.params.id, x, y);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
-const bash = async (req, res) => {
+  const result = await cyberdeskService.clickMouse(req.params.id, x, y);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Desktop Click Processed Successfully.',
+    data: result,
+  });
+});
+
+const bash = catchAsync(async (req, res, next) => {
   const { command } = req.body;
-  try {
-    const result = await cyberdeskService.executeBash(req.params.id, command);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
-const terminate = async (req, res) => {
-  try {
-    const result = await cyberdeskService.terminateDesktop(req.params.id);
-    res.status(200).json(result);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+  const result = await cyberdeskService.executeBash(req.params.id, command);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Desktop Bash Processed Successfully.',
+    data: result,
+  });
+});
+
+const terminate = catchAsync(async (req, res, next) => {
+  const result = await cyberdeskService.terminateDesktop(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Desktop Terminate Successfully.',
+    data: result,
+  });
+});
 
 export const cyberdeskController = {
   launch,
