@@ -11,6 +11,7 @@ import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
 import { cyberdeskRoutes } from '../modules/cyberdesk/cyberdesk.route.js';
 import { codeEditorRoutes } from '../modules/codeEditor/codeEditor.route.js';
+import { geminiCliRoutes } from '../modules/geminiCli/geminiCli.route.js';
 // import { flowiseRoutes } from '../modules/flowise/flowise.route.js';
 
 const router = express.Router();
@@ -55,6 +56,10 @@ const moduleRoutes = [
   {
     path: '/dyad/claude',
     route: dyadAiRoutes,
+  },
+  {
+    path: '/gemini-cli',
+    route: geminiCliRoutes,
   },
 ];
 
