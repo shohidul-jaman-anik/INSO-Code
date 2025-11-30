@@ -1,6 +1,7 @@
-import { exec } from "child_process";
+import { exec } from 'child_process';
 
 const openFolder = (req, res) => {
+  res.removeHeader('X-Frame-Options'); // allow iframe
   const folderPath = req.body.path;
 
   exec(

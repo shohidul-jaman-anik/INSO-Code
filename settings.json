@@ -1,0 +1,6 @@
+{
+  "githubMCP.serverURL": "https://github-mcp.example.com",
+  "githubMCP.apiToken": "${GITHUB_MCP_API_KEY}",
+  "mongodbMCP.serverURL": "https://mongodb-mcp.example.com",
+  "mongodbMCP.apiToken": "${MONGODB_MCP_API_KEY}"
+}
