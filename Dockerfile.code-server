@@ -1,6 +1,6 @@
 FROM codercom/code-server:latest
 
 # Preinstall default extensions
-RUN code-server --install-extension github.mcp-registry \
-    && code-server --install-extension github.vscode-mcp \
-    && code-server --install-extension mongodb.mongodb-vscode-mcp
+RUN code-server --install-extension github.copilot || true \
+    && code-server --install-extension ms-vscode.remote-server || true \
+    && code-server --install-extension mongodb.mongodb-vscode || true
