@@ -6,6 +6,7 @@ import { BufferMemory } from 'langchain/memory';
 import mongoose from 'mongoose';
 import ApiError from '../../../errors/ApiError.js';
 // import { logger } from '../../../shared/logger.js';
+import { logger } from '../../../shared/logger.js';
 import UserModel from '../auth/auth.model.js';
 import Llama from './dyad.model.js';
 
@@ -92,7 +93,8 @@ const claudeResponseService = async (prompt, userId, sessionId) => {
     }
 
     const payload = { sessionId, prompt, reply };
-    console.log('Claude Response Payload:', payload);
+    // console.log('Claude Response Payload:', payload);
+    logger.info('Claude Response Payload:', payload);
     return payload;
   } catch (error) {
     // logger.error('Error in claudeResponseService:', error);
@@ -111,7 +113,7 @@ const getAiResponsesByUserIdService = async userId => {
     .populate({
       path: 'llamaAiSessions',
     });
-  // logger.info(sessionData, 'sessionData');
+  logger.info(sessionData, 'sessionData');
   if (!sessionData) {
     return {
       statusCode: httpStatus.NOT_FOUND,
@@ -127,7 +129,7 @@ const getAiResponsesBySession = async id => {
   const sessionData = await Llama.findOne({
     sessionId: id,
   });
-  // logger.info(sessionData, 'sessionData');
+  logger.info(sessionData, 'sessionData');
 
   if (!sessionData) {
     return {

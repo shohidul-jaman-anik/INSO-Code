@@ -1,45 +1,45 @@
-// import { Client } from '@elastic/elasticsearch';
+import { Client } from '@elastic/elasticsearch';
 import path from 'path';
 import winston, { format } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
-// import { ElasticsearchTransport } from 'winston-elasticsearch';
+import { ElasticsearchTransport } from 'winston-elasticsearch';
 
 const { combine, timestamp, label, prettyPrint, printf } = format;
 
+// Custom log format
 const myFormat = printf(({ level, message, label, timestamp }) => {
   return `${timestamp} [${label}] ${level}: ${message}`;
 });
 
 // Elasticsearch Client
-// const esClient = new Client({
-//   node: 'http://elasticsearch:9200', // MUST match docker container name
-//   compatibility: true,
-// });
+const esClient = new Client({
+  // node: 'http://elasticsearch:9200',
+  node: 'http://localhost:9200',
+  compatibility: true,
+});
 
-// // Check connection
-// esClient
-//   .ping({}, { requestTimeout: 1000 })
-//   .then(() => console.log('✅ Connected to Elasticsearch'))
-//   .catch(err => console.error('❌ Cannot connect to Elasticsearch:', err));
+// Check connection
+esClient
+  .ping({}, { requestTimeout: 1000 })
+  .then(() => console.log('✅ Connected to Elasticsearch'))
+  .catch(err => console.error('❌ Cannot connect to Elasticsearch:', err));
 
-// // Elasticsearch Transport
-// const esTransport = new ElasticsearchTransport({
-//   level: 'info',
-//   client: esClient,
-//   indexPrefix: 'ason-logs',
-//   flushInterval: 2000,
-//   transformer: logData => ({
-//     '@timestamp': logData.timestamp,
-//     severity: logData.level,
-//     message: logData.message,
-//     fields: logData.meta || {},
-//   }),
-// });
+const esTransport = new ElasticsearchTransport({
+  level: 'info',
+  // clientOpts: { node: 'http://elasticsearch:9200' },
+  clientOpts: { node: 'http://localhost:9200' },
+  indexPrefix: 'inso-code-logs',
+  indexSuffixPattern: 'YYYY-MM-DD',
+});
 
-// Base format
+esTransport.on('error', error => {
+  console.error('❌ Elasticsearch Transport Error:', error);
+});
+
+// Base log format
 const baseFormat = combine(
-  label({ label: 'ASON Core Service' }),
-  timestamp(),
+  label({ label: 'INSO Code Service' }),
+  timestamp(), // always produces ISO timestamp
   myFormat,
   prettyPrint(),
 );
@@ -50,6 +50,7 @@ export const logger = winston.createLogger({
   format: baseFormat,
   transports: [
     new winston.transports.Console(),
+
     new DailyRotateFile({
       filename: path.join(
         process.cwd(),
@@ -62,7 +63,8 @@ export const logger = winston.createLogger({
       maxSize: '20m',
       maxFiles: '14d',
     }),
-    // esTransport,
+
+    esTransport,
   ],
 });
 
@@ -72,6 +74,7 @@ export const errorlogger = winston.createLogger({
   format: baseFormat,
   transports: [
     new winston.transports.Console(),
+
     new DailyRotateFile({
       filename: path.join(
         process.cwd(),
@@ -84,7 +87,7 @@ export const errorlogger = winston.createLogger({
       maxSize: '20m',
       maxFiles: '14d',
     }),
-    // esTransport,
+
+    esTransport,
   ],
 });
-

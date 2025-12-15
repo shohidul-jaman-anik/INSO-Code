@@ -2,7 +2,7 @@ import http from 'http';
 import mongoose from 'mongoose';
 import config from './config/index.js';
 import app from './index.js'; // Make sure this exists and exports an Express app
-// import { logger } from './src/shared/logger.js';
+import { logger } from './src/shared/logger.js';
 // import { RedisClient } from './src/shared/redis.js';
 
 process.on('uncaughtException', error => {
@@ -17,19 +17,20 @@ async function main() {
   try {
     // await RedisClient.connect();
     // logger.info('✅ Redis is connected successfully');
-    console.log('✅ Redis is connected successfully');
+    // console.log('✅ Redis is connected successfully');
 
     await mongoose.connect(config.database_local);
-    // logger.info('✅ MongoDB connected successfully');
-    console.log('✅ MongoDB connected successfully');
+    logger.info('✅ MongoDB connected successfully');
+    logger.info("Test log entry from INSOCODE");
+    // console.log('✅ MongoDB connected successfully');
 
     server = http.createServer(app).listen(config.port, () => {
-      // logger.info(`🚀 Server listening on port ${config.port}`);
-      console.log(`🚀 Server listening on port ${config.port}`);
+      logger.info(`🚀 Server listening on port ${config.port}`);
+      // console.log(`🚀 Server listening on port ${config.port}`);
     });
   } catch (error) {
-    // errorlogger.error(`❌ Failed to connect: ${error}`);
-    console.log(`❌ Failed to connect: ${error}`);
+    errorlogger.error(`❌ Failed to connect: ${error}`);
+    // console.log(`❌ Failed to connect: ${error}`);
     process.exit(1);
   }
 

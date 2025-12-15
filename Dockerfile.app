@@ -1,14 +1,12 @@
-# Use official Node 18 image
-FROM node:18-alpine
+# Use official Node 20 image
+FROM node:20-slim
 
-# Create app dir
+# Create app directory
 WORKDIR /app/inso-code-service
 
-# Copy dependency manifests first (better cache)
+# Install dependencies based on package.json (cached unless changed)
 COPY package*.json ./
 
-# Install dependencies
-# For dev, we will install everything (so nodemon in devDependencies will be available)
 RUN npm install --legacy-peer-deps
 
 # Copy rest of app
@@ -17,5 +15,5 @@ COPY . .
 # Expose app port
 EXPOSE 5100
 
-# Use npm script (recommended). Make sure package.json has "dev": "nodemon index.js"
-CMD ["npm", "run", "dev"]
+# Start the application
+CMD ["npx", "nodemon", "index.js"]

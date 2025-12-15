@@ -9,14 +9,21 @@ services:
     ports:
       - '5100:5100'
     volumes:
-      - .:/app/inso-code-service:cached
-      - node_modules:/app/inso-code-service/node_modules
+      - ../INSO_CODE_BACKEND:/app/inso-code-service
+      - node_modules_cache:/app/inso-code-service/node_modules
     networks:
       - inso_code_network
+    depends_on:
+      # redis-stack:
+      #   condition: service_started
+      elasticsearch:
+        condition: service_started
+      kibana:
+        condition: service_started
     restart: unless-stopped
 
   elasticsearch:
-    image: elasticsearch:8.18.1
+    image: elasticsearch:7.9.2
     container_name: elasticsearch
     restart: always
     environment:
@@ -31,8 +38,9 @@ services:
     networks:
       - inso_code_network
 
+
   kibana:
-    image: kibana:8.18.1
+    image: kibana:7.9.2
     container_name: kibana
     restart: always
     environment:
@@ -45,9 +53,6 @@ services:
       - inso_code_network
 
   inso_code_editor:
-    build:
-      context: .
-      dockerfile: Dockerfile.code-server
     image: codercom/code-server:latest
     container_name: inso_code_editor
     environment:
@@ -55,14 +60,7 @@ services:
       - TZ=Asia/Dhaka
     ports:
       - '8080:8080'
-    command: [
-        '--bind-addr',
-        '0.0.0.0:8080',
-        '--auth',
-        'password',
-        # OPEN BLANK — NO PROJECT
-        '.',
-      ]
+    command: ['--bind-addr', '0.0.0.0:8080', '--auth', 'password', '.']
     user: root
     # REMOVE project mount to stop auto-loading!
     volumes:
@@ -75,10 +73,23 @@ services:
       - inso_code_network
     restart: unless-stopped
 
+  # redis-stack:
+  #   image: redis/redis-stack:latest
+  #   container_name: redis-stack
+  #   ports:
+  #     - '6379:6379'
+  #     - '8001:8001'
+  #   volumes:
+  #     - redis_data:/var/lib/redis
+  #   environment:
+  #     - REDIS_ARGS= --save 900 1
+  #   networks:
+  #     - inso_code_network
+
 networks:
   inso_code_network:
     driver: bridge
 
 volumes:
-  node_modules:
   code_server_data:
+  node_modules_cache:

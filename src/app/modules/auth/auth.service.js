@@ -8,6 +8,7 @@ import { jwtHelpers } from '../../helpers/jwtHelpers.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
 import UserModel from './auth.model.js';
 import { registrationOtpTemplate } from './auth.utils.js';
+import { logger } from '../../../shared/logger.js';
 
 const deleteUserAccountService = async userId => {
   const result = await UserModel.deleteOne({ _id: userId });
@@ -147,6 +148,7 @@ const loginService = async (email, password) => {
     config.jwt.refresh_token,
     config.jwt.refresh_expires_in,
   );
+  logger.info(`User logged in: ${user._id}`);
 
   return {
     _id: user._id,

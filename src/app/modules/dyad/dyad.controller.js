@@ -1,5 +1,6 @@
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync.js';
+import { logger } from '../../../shared/logger.js';
 import sendResponse from '../../../shared/sendResponse.js';
 import validatePromptRequest from '../../../shared/validatePromptRequest.js';
 import { ClaudeServices } from './dyad.service.js';
@@ -29,7 +30,7 @@ const LlamaAiGetResponseFromDbByUserId = catchAsync(async (req, res) => {
   console.log(userId, 'userId from token in controller');
   const responseData =
     await ClaudeServices.getAiResponsesByUserIdService(userId);
-
+  logger.info(responseData, 'LlamaAiGetResponseFromDbByUserId');
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -43,7 +44,7 @@ const LlamaAiGetResponseFromDbBySessionId = catchAsync(async (req, res) => {
   // logger.info(id, 'session');
 
   const responseData = await ClaudeServices.getAiResponsesBySession(id);
-
+  logger.info(responseData, 'LlamaAiGetResponseFromDbBySessionId');
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -62,7 +63,7 @@ const deleteOneAiSession = catchAsync(async (req, res) => {
       error: result.message,
     });
   }
-
+  logger.info('Delete One Ai Session Result:', result);
   sendResponse(res, {
     statusCode: httpStatus.NO_CONTENT,
     success: true,
@@ -83,7 +84,7 @@ const deleteAllAiSessions = catchAsync(async (req, res) => {
       error: result.message,
     });
   }
-
+  logger.info('Delete All Ai Sessions Result:', result);
   sendResponse(res, {
     statusCode: httpStatus.NO_CONTENT,
     success: true,
