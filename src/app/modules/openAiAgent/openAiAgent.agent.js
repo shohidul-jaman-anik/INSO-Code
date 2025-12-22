@@ -58,7 +58,7 @@ const validateOutputTool = tool({
 
 const ProgrammerAgentModel = new Agent({
   name: 'Universal Programmer Agent',
-  model: 'gpt-4.1',
+  model: 'gpt-5.2',
   instructions: `
 You are a Staff-level software engineer.
 

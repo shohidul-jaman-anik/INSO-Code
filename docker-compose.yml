@@ -1,5 +1,6 @@
 services:
   inso_code_app:
+    image: anik2861/inso-code:v1
     build:
       context: .
       dockerfile: Dockerfile.app

@@ -6,6 +6,7 @@ import ApiError from '../errors/ApiError.js';
 const validatePromptRequest = async (req, res) => {
   const prompt = req.body?.prompt;
   const userId = req.user?._id;
+  const language =req.body?.language || 'en';
   const sessionId = req.body?.sessionId || randomUUID();
 
   if (!prompt) {
@@ -17,6 +18,6 @@ const validatePromptRequest = async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  return { prompt, userId, sessionId };
+  return { prompt, userId, sessionId,language };
 };
 export default validatePromptRequest;
