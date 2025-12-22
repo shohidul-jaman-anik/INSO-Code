@@ -13,6 +13,7 @@ import { openAiRoutes } from '../modules/openAiAgent/openAiAgent.router.js';
 import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
 import { geminiAiRoutes } from '../modules/gemini/gemini.route.js';
+import { languageConvAgentRoutes } from '../modules/languageConversion/languageConversion.router.js';
 // import { flowiseRoutes } from '../modules/flowise/flowise.route.js';
 
 const router = express.Router();
@@ -66,6 +67,10 @@ const moduleRoutes = [
   {
     path: '/gemini',
     route: geminiAiRoutes,
+  },
+  {
+    path: '/language-convention',
+    route: languageConvAgentRoutes,
   },
 ];
 
