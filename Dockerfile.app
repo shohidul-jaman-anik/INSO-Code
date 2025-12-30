@@ -8,6 +8,8 @@ WORKDIR /app/inso-code-service
 COPY package*.json ./
 
 RUN npm install --legacy-peer-deps
+RUN npm install -g nodemon
+
 
 # Copy rest of app
 COPY . .
@@ -16,4 +18,4 @@ COPY . .
 EXPOSE 5100
 
 # Start the application
-CMD ["npx", "nodemon", "index.js"]
+CMD ["nodemon", "index.js"]

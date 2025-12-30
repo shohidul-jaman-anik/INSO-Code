@@ -10,8 +10,9 @@ services:
     ports:
       - '5100:5100'
     volumes:
-      - ../INSO_CODE_BACKEND:/app/inso-code-service
       - node_modules_cache:/app/inso-code-service/node_modules
+      # - ../INSO_CODE_BACKEND:/app/inso-code-service
+      # - node_modules_cache:/app/inso-code-service/node_modules
     networks:
       - inso_code_network
     depends_on:
