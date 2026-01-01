@@ -235,7 +235,7 @@ app.use((req, res) => {
 
 // Start server
 const port = config.port || 8080;
-app.listen(port, () => {
+app.listen(port,"0.0.0.0", () => {
   console.log(`App is running on port ${port}`);
 });
 
