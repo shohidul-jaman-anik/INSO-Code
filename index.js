@@ -130,7 +130,7 @@ app.use(
   cors({
     origin: [
       'https://www.insocode.com',
-      'https://inso-code.netlify.app',
+      'https://www.alticodestudio.com',
       'http://localhost:3000',
       'http://localhost:3100',
     ],
