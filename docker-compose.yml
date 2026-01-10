@@ -58,19 +58,16 @@ services:
     image: codercom/code-server:latest
     container_name: inso_code_editor
     environment:
-      - PASSWORD=${CODE_SERVER_PASSWORD:-123456}
       - TZ=Asia/Dhaka
     ports:
       - '8080:8080'
-    command: ['--bind-addr', '0.0.0.0:8080', '--auth', 'password', '.']
+    command: ['--bind-addr', '0.0.0.0:8080', '--auth', 'none', '--base-path', '/editor']
     user: root
     # REMOVE project mount to stop auto-loading!
     volumes:
-      #  - "C:/:/user-projects"
       - /user-projects:/user-projects
       - code_server_data:/home/coder/.local/share/code-server
       - ./vscode-settings.json:/home/coder/.local/share/code-server/User/settings.json
-
     networks:
       - inso_code_network
     restart: unless-stopped
