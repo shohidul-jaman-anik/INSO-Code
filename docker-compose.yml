@@ -40,7 +40,6 @@ services:
     networks:
       - inso_code_network
 
-
   kibana:
     image: kibana:7.9.2
     container_name: kibana
@@ -58,18 +57,21 @@ services:
     image: codercom/code-server:latest
     container_name: inso_code_editor
     environment:
-    - TZ=Asia/Dhaka
+      - TZ=Asia/Dhaka
     ports:
-    - '8080:8080'
-    command: [
-        '--bind-addr', '0.0.0.0:8080',
-         '--auth', 'none',
-         '--disable-telemetry',
-         '--disable-update-check',
-         '--host', '0.0.0.0',
-         '--cert', '/etc/ssl/certs/code-server.crt',
-         '--cert-key', '/etc/ssl/private/code-server.key',
-         '--base-path', '/editor'
+      - '8080:8080'
+    command:
+      [
+        '--bind-addr',
+        '0.0.0.0:8080',
+        '--auth',
+        'none',
+        '--disable-telemetry',
+        '--disable-update-check',
+        '--host',
+        '0.0.0.0',
+        '--base-path',
+        '/editor',
       ]
     user: root
     volumes:
@@ -77,7 +79,7 @@ services:
       - code_server_data:/home/coder/.local/share/code-server
       - ./vscode-settings.json:/home/coder/.local/share/code-server/User/settings.json
     networks:
-    - inso_code_network
+      - inso_code_network
     restart: unless-stopped
 
   # redis-stack:
