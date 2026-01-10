@@ -62,16 +62,8 @@ services:
       - '8080:8080'
     command:
       [
-        '--bind-addr',
-        '0.0.0.0:8080',
-        '--auth',
-        'none',
-        '--disable-telemetry',
-        '--disable-update-check',
-        '--host',
-        '0.0.0.0',
-        '--base-path',
-        '/editor',
+          "--bind-addr", "0.0.0.0:8080",
+          "--auth", "none"
       ]
     user: root
     volumes:
