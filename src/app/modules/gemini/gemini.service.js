@@ -98,15 +98,13 @@
 //   geminiService,
 // };
 
-
-
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import httpStatus from 'http-status';
 import config from '../../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
 import { logger } from '../../../shared/logger.js';
-import UserModel from '../auth/auth.model.js';
 import Llama from '../dyad/dyad.model.js';
+import UserModel from '../auth/auth.model.js';
 
 const client = new GoogleGenerativeAI(config.gemini_secret_key);
 const sessionStore = {};
@@ -123,7 +121,7 @@ const geminiService = async (sessionId, prompt, userId, language = 'text') => {
 
     // UPDATED MODEL NAME: gemini-3-pro-preview
     const model = client.getGenerativeModel({
-      model: 'gemini-3-pro-preview', 
+      model: 'gemini-3-pro-preview',
     });
 
     const chat = model.startChat({
@@ -132,7 +130,7 @@ const geminiService = async (sessionId, prompt, userId, language = 'text') => {
         maxOutputTokens: 65536, // Gemini 3 supports much larger output limits
         temperature: coding ? 0.2 : 0.7,
         // Optional: thinkingLevel is a new Gemini 3 feature for reasoning
-        // thinkingLevel: coding ? 'high' : 'low', 
+        // thinkingLevel: coding ? 'high' : 'low',
       },
     });
 
@@ -144,7 +142,7 @@ const geminiService = async (sessionId, prompt, userId, language = 'text') => {
     // Update Local History
     sessionStore[sessionId].push(
       { role: 'user', parts: [{ text: prompt }] },
-      { role: 'model', parts: [{ text: responseText }] }
+      { role: 'model', parts: [{ text: responseText }] },
     );
 
     const responseData = {

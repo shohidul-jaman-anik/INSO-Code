@@ -2,11 +2,11 @@ import mongoose from 'mongoose';
 import catchAsync from '../../../shared/catchAsync.js';
 import sendResponse from '../../../shared/sendResponse.js';
 import { checkUsageLimits } from '../../middlewares/checkUsageLimits/checkUsageLimits.js';
-import UserModel from '../auth/auth.model.js';
 import SubscriptionModel from './payment.model.js';
 import { PaymentService } from './payment.service.js';
 // import { checkFreePlanLimits } from '../../middlewares/checkFreePlanLimits/checkFreePlanLimits.js';
 import { checkFreePlanLimits } from '../../middlewares/checkFreePlanLimits/checkFreePlanLimits.js';
+import UserModel from '../auth/auth.model.js';
 
 const createCheckoutSession = catchAsync(async (req, res, next) => {
   const { userId, plan } = req.body;

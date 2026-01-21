@@ -1,10 +1,8 @@
 import express from 'express';
 import { authRoutes } from '../modules/auth/auth.route.js';
 import { subscriptionRoutes } from '../modules/payment/payment.route.js';
-// import { serperAiRoutes } from '../modules/serper/serper.route.js';
 import { adminRoutes } from '../modules/admin/admin.route.js';
 import { dyadAiRoutes } from '../modules/dyad/dyad.route.js';
-// import { geminiOpenMemoryAiRoutes } from '../modules/geminiOpenMemory/geminiOpenMemo.route.js';
 import { codeEditorRoutes } from '../modules/codeEditor/codeEditor.route.js';
 import { cyberdeskRoutes } from '../modules/cyberdesk/cyberdesk.route.js';
 import { geminiCliRoutes } from '../modules/geminiCli/geminiCli.route.js';
@@ -14,7 +12,7 @@ import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
 import { geminiAiRoutes } from '../modules/gemini/gemini.route.js';
 import { languageConvAgentRoutes } from '../modules/languageConversion/languageConversion.router.js';
-// import { flowiseRoutes } from '../modules/flowise/flowise.route.js';
+import { documentationAgentRoutes } from '../modules/documentationAgent/documentation.Agent.route.js';
 
 const router = express.Router();
 
@@ -27,7 +25,6 @@ const moduleRoutes = [
     path: '/auth',
     route: authRoutes,
   },
-
   {
     path: '/parsr',
     route: parsrRoutes,
@@ -71,6 +68,10 @@ const moduleRoutes = [
   {
     path: '/language-convention',
     route: languageConvAgentRoutes,
+  },
+  {
+    path: '/documentation-agent',
+    route: documentationAgentRoutes,
   },
 ];
 

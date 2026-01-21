@@ -9,18 +9,17 @@ import catchAsync from '../../../shared/catchAsync.js';
 // import { logger } from '../../../shared/logger.js';
 import sendResponse from '../../../shared/sendResponse.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
-import UserModel from './auth.model.js';
-import { authService } from './auth.service.js';
 import {
   deleteUserOtpTemplate,
   forgetPassOtpTemplate,
   generateOTP,
 } from './auth.utils.js';
+import UserModel from './auth.model.js';
 
 const mailgun = new Mailgun(formData);
 
 const register = catchAsync(async (req, res) => {
-  const result = await authService.registerService(req);
+  const result = await UserModel.registerService(req);
   // logger.info(result, 'resultttttttttttttttt');
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -32,7 +31,7 @@ const register = catchAsync(async (req, res) => {
 
 const confirmEmail = catchAsync(async (req, res) => {
   const { token } = req.params;
-  const result = await authService.confirmEmailService(token);
+  const result = await UserModel.confirmEmailService(token);
   if (result instanceof ApiError) {
     // If an ApiError is returned, handle it as an error response
     return sendResponse(res, {
@@ -49,7 +48,7 @@ const confirmEmail = catchAsync(async (req, res) => {
 const login = catchAsync(async (req, res) => {
   // logger.info(req.body, 'data login');
   const { email, password } = req.body;
-  const result = await authService.loginService(email, password);
+  const result = await UserModel.loginService(email, password);
   // logger.info(result, 'resultttttttttttttttt');
 
   const { refreshToken, ...others } = result;
@@ -72,7 +71,7 @@ const login = catchAsync(async (req, res) => {
 const refreshToken = catchAsync(async (req, res) => {
   const { refreshToken } = req.cookies;
 
-  const result = await authService.refreshToken(refreshToken);
+  const result = await UserModel.refreshToken(refreshToken);
 
   // set refresh token into cookie
   const cookieOptions = {
@@ -96,7 +95,9 @@ const forgetPassword = async (req, res) => {
 
   try {
     const { email } = req.body;
-    const user = await UserModel.findOne({ email: email }).session(session);
+    const user = await UserModel.findOne({
+      email: email,
+    }).session(session);
 
     if (!user) {
       await session.abortTransaction();
@@ -134,7 +135,9 @@ const resetPassword = async (req, res) => {
 
   try {
     const { email, otp, newPassword } = req.body;
-    const user = await UserModel.findOne({ email: email }).session(session);
+    const user = await UserModel.findOne({
+      email: email,
+    }).session(session);
 
     if (!user) {
       await session.abortTransaction();
@@ -261,7 +264,9 @@ const deleteUserAccount = async (req, res, next) => {
     }
 
     // Proceed with deleting the user account
-    const result = await UserModel.deleteOne({ _id: userId }).session(session);
+    const result = await UserModel.deleteOne({
+      _id: userId,
+    }).session(session);
 
     await session.commitTransaction();
     session.endSession();
@@ -357,7 +362,7 @@ const getUser = catchAsync(async (req, res) => {
   const userId = req.user?._id;
   console.log(userId, 'userId from token in controller');
 
-  const result = await authService.getUserService(userId);
+  const result = await UserModel.getUserService(userId);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -370,7 +375,7 @@ const getUser = catchAsync(async (req, res) => {
 const updateUser = catchAsync(async (req, res) => {
   const userId = req.params?.userId;
   const data = req.body;
-  const result = await authService.updateUserService(userId, data);
+  const result = await UserModel.updateUserService(userId, data);
   if (result.modifiedCount == !1) {
     throw new ApiError(
       httpStatus.NOT_FOUND,

@@ -6,15 +6,16 @@ import { BufferMemory } from 'langchain/memory';
 import config from '../../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
 import { logger } from '../../../shared/logger.js';
-import UserModel from '../auth/auth.model.js';
 // import Llama from '../groq/groq.model.js';
 import { paymentController } from '../payment/payment.controller.js';
-import { GEMINI_RESPONSE_SERVICE_POST } from './geminiOpenMemo.constant.js';
 // import { RedisClient } from '../../../shared/redis.js';
 import Llama from './geminiOpenMemo.model.js';
+import UserModel from '../auth/auth.model.js';
 
 const client = new GoogleGenerativeAI(config.gemini_secret_key);
-const model = client.getGenerativeModel({ model:  'gemini-2.5-flash-preview-05-20' });
+const model = client.getGenerativeModel({
+  model: 'gemini-2.5-flash-preview-05-20',
+});
 
 const sessionMemoryStore = {};
 
@@ -57,7 +58,7 @@ const geminiOpenMemoryService = async (sessionId, prompt, userId) => {
 
     const responseData = {
       prompt,
-      model:  'gemini-2.5-flash-preview',
+      model: 'gemini-2.5-flash-preview',
       reply,
       total_time: result?.usage?.total_time || 0,
     };

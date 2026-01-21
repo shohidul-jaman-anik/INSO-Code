@@ -1,8 +1,8 @@
 // import { logger } from '../../../shared/logger.js';
-import paginationHelpers from '../../helpers/paginationHelpers.js';
-import UserModel from '../auth/auth.model.js';
-import SubscriptionModel from '../payment/payment.model.js';
 import mongoose from 'mongoose';
+import paginationHelpers from '../../helpers/paginationHelpers.js';
+import SubscriptionModel from '../payment/payment.model.js';
+import UserModel from '../auth/auth.model.js';
 
 // ===========================================
 //                  All Users
@@ -35,7 +35,9 @@ const getAllUsersService = async (filters, paginationOptions) => {
     sortConditions[sortBy] = sortOrder;
   }
 
-  const users = await UserModel.find({ $and: andConditions })
+  const users = await UserModel.find({
+    $and: andConditions,
+  })
     .select('email isSubscribed role subscription')
     .sort(sortConditions)
     .skip(skip)

@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 import Stripe from 'stripe';
 import config from '../../../../config/index.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
-import UserModel from '../auth/auth.model.js';
 import SubscriptionModel from './payment.model.js';
 import { purchasePlanTemplate } from './payment.utils.js';
+import UserModel from '../auth/auth.model.js';
 // import { logger } from '../../../shared/logger.js';
 
 const stripe = new Stripe(config.stripe.stripe_secret_key);

@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 import config from '../../../../config/index.js';
 import ApiError from '../../../errors/ApiError.js';
 // import { logger } from '../../../shared/logger.js';
+import { logger } from '../../../shared/logger.js';
 import { jwtHelpers } from '../../helpers/jwtHelpers.js';
 import { sendMailWithMailGun } from '../../middlewares/sendEmail/sendMailWithMailGun.js';
-import UserModel from './auth.model.js';
 import { registrationOtpTemplate } from './auth.utils.js';
-import { logger } from '../../../shared/logger.js';
+import UserModel from './auth.model.js';
 
 const deleteUserAccountService = async userId => {
   const result = await UserModel.deleteOne({ _id: userId });
@@ -22,7 +22,10 @@ const registerService = async req => {
 
     const { password, email } = req.body;
 
-    const existingEmail = await UserModel.findOne({ email }).session(session);
+    const existingEmail =
+      await UserModel.findOne({
+        email,
+      }).session(session);
     if (existingEmail) {
       await session.abortTransaction();
       throw new ApiError(httpStatus.CONFLICT, 'Email already exists!');
@@ -73,7 +76,9 @@ const registerService = async req => {
 };
 
 const confirmEmailService = async token => {
-  const user = await UserModel.findOne({ confirmationToken: token });
+  const user = await UserModel.findOne({
+    confirmationToken: token,
+  });
 
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
@@ -104,7 +109,9 @@ const loginService = async (email, password) => {
       'Email and password are required',
     );
   }
-  const user = await UserModel.findOne({ email }).select('+password');
+  const user = await UserModel.findOne({
+    email,
+  }).select('+password');
 
   if (!user) {
     throw new ApiError(
@@ -200,7 +207,10 @@ const updateUserService = async (userId, data) => {
   }
 
   // Update the data
-  const result = await UserModel.updateOne({ _id: userId }, updateData);
+  const result = await UserModel.updateOne(
+    { _id: userId },
+    updateData,
+  );
   // logger.info(result, 'result');
   return result;
 };

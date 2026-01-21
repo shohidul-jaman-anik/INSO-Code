@@ -6,7 +6,9 @@ cron.schedule(
   '47 18 * * *', // Runs at 6:47 PM UTC (3:11 PM Bangladesh Time)
   // '30 2 * * *',  // Runs at 2:30 AM Bangladesh Time
   async () => {
-    console.log(`⏳ Running scheduled task at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })}`);
+    console.log(
+      `⏳ Running scheduled task at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })}`,
+    );
 
     // ✅ 1. Reset daily usage for all active subscriptions (paid & not expired)
     const activeSubscriptions = await SubscriptionModel.find({
@@ -20,7 +22,9 @@ cron.schedule(
       await subscription.save();
     }
 
-    console.log(`✅ Reset prompts & images for ${activeSubscriptions.length} active subscriptions.`);
+    console.log(
+      `✅ Reset prompts & images for ${activeSubscriptions.length} active subscriptions.`,
+    );
 
     // ✅ 2. Expire subscriptions that have reached their expiry date:-
     const expiredSubscriptions = await SubscriptionModel.find({
@@ -35,7 +39,7 @@ cron.schedule(
       // ✅ Update User Model to reflect expired subscription
       await UserModel.findOneAndUpdate(
         { _id: subscription.userId },
-        { isSubscribed: false, 'subscription.status': 'expired' }
+        { isSubscribed: false, 'subscription.status': 'expired' },
       );
     }
 
@@ -50,7 +54,7 @@ cron.schedule(
           'freePlanUsage.imagesUsed': 0,
           'freePlanUsage.lastResetAt': new Date(),
         },
-      }
+      },
     );
 
     console.log('✅ Reset free plan usage for all users.');
@@ -58,5 +62,5 @@ cron.schedule(
   {
     scheduled: true,
     timezone: 'Asia/Dhaka', // ⬅️ Ensure it runs in Bangladesh Time
-  }
+  },
 );

@@ -18,12 +18,9 @@ const getAllBuyer = catchAsync(async (req, res) => {
   });
 });
 
-
-
 const deleteUser = catchAsync(async (req, res) => {
-  const objectId  = req.params?.objectId;
+  const objectId = req.params?.objectId;
   const result = await AdminService.deleteUserService(objectId);
-  
 
   if (!result.deletedCount) {
     return res.status(400).json({
@@ -41,7 +38,6 @@ const deleteUser = catchAsync(async (req, res) => {
 });
 
 const getAllUsers = catchAsync(async (req, res) => {
- 
   const filters = pick(req.query, [
     'searchTerm',
     'email',

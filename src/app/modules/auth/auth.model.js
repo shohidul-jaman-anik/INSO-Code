@@ -95,5 +95,4 @@ UserSchema.statics.isUserExist = async function (id) {
 };
 
 const UserModel = mongoose.model('User', UserSchema);
-
 export default UserModel;

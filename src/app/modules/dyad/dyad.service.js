@@ -7,8 +7,8 @@ import mongoose from 'mongoose';
 import ApiError from '../../../errors/ApiError.js';
 // import { logger } from '../../../shared/logger.js';
 import { logger } from '../../../shared/logger.js';
-import UserModel from '../auth/auth.model.js';
 import Llama from './dyad.model.js';
+import UserModel from '../auth/auth.model.js';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
