@@ -1,18 +1,20 @@
 import express from 'express';
-import { authRoutes } from '../modules/auth/auth.route.js';
-import { subscriptionRoutes } from '../modules/payment/payment.route.js';
 import { adminRoutes } from '../modules/admin/admin.route.js';
-import { dyadAiRoutes } from '../modules/dyad/dyad.route.js';
+import { architectAgentRoutes } from '../modules/architectAgent/architect.agent.route.js';
+import { authRoutes } from '../modules/auth/auth.route.js';
 import { codeEditorRoutes } from '../modules/codeEditor/codeEditor.route.js';
 import { cyberdeskRoutes } from '../modules/cyberdesk/cyberdesk.route.js';
+import { documentationAgentRoutes } from '../modules/documentationAgent/documentation.Agent.route.js';
+import { dyadAiRoutes } from '../modules/dyad/dyad.route.js';
+import { geminiAiRoutes } from '../modules/gemini/gemini.route.js';
 import { geminiCliRoutes } from '../modules/geminiCli/geminiCli.route.js';
+import { languageConvAgentRoutes } from '../modules/languageConversion/languageConversion.router.js';
 import { llamaindexRoutes } from '../modules/llamaindex/llamaindex.route.js';
 import { openAiRoutes } from '../modules/openAiAgent/openAiAgent.router.js';
 import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
-import { geminiAiRoutes } from '../modules/gemini/gemini.route.js';
-import { languageConvAgentRoutes } from '../modules/languageConversion/languageConversion.router.js';
-import { documentationAgentRoutes } from '../modules/documentationAgent/documentation.Agent.route.js';
+import { subscriptionRoutes } from '../modules/payment/payment.route.js';
+import { refactoringAgentRoutes } from '../modules/refactoringAgent/refactoring.Agent.route.js';
 
 const router = express.Router();
 
@@ -72,6 +74,14 @@ const moduleRoutes = [
   {
     path: '/documentation-agent',
     route: documentationAgentRoutes,
+  },
+  {
+    path: '/refactoring-agent',
+    route: refactoringAgentRoutes,
+  },
+  {
+    path: '/architect-agent',
+    route: architectAgentRoutes,
   },
 ];
 
