@@ -8,13 +8,16 @@ import { documentationAgentRoutes } from '../modules/documentationAgent/document
 import { dyadAiRoutes } from '../modules/dyad/dyad.route.js';
 import { geminiAiRoutes } from '../modules/gemini/gemini.route.js';
 import { geminiCliRoutes } from '../modules/geminiCli/geminiCli.route.js';
-import { languageConvAgentRoutes } from '../modules/languageConversion/languageConversion.router.js';
+// import { languageConvAgentRoutes } from '../modules/languageConversion/languageConversion.router.js';
+import { languageConversionAgentRoutes } from '../modules/languageConversionAgent/language.conversion.agent.route.js';
 import { llamaindexRoutes } from '../modules/llamaindex/llamaindex.route.js';
 import { openAiRoutes } from '../modules/openAiAgent/openAiAgent.router.js';
 import { openSWERoutes } from '../modules/openSWE/openswe.route.js';
 import { parsrRoutes } from '../modules/parsr/parsr.route.js';
 import { subscriptionRoutes } from '../modules/payment/payment.route.js';
 import { refactoringAgentRoutes } from '../modules/refactoringAgent/refactoring.Agent.route.js';
+import { reviewQAAgentRoutes } from '../modules/reviewQAAgent/review.qa.agent.route.js';
+import { openworkRoutes } from '../modules/openwork/openwork.routes.js';
 
 const router = express.Router();
 
@@ -67,9 +70,13 @@ const moduleRoutes = [
     path: '/gemini',
     route: geminiAiRoutes,
   },
+  // {
+  //   path: '/language-convention',
+  //   route: languageConvAgentRoutes,
+  // },
   {
-    path: '/language-convention',
-    route: languageConvAgentRoutes,
+    path: '/language-conversion',
+    route: languageConversionAgentRoutes,
   },
   {
     path: '/documentation-agent',
@@ -82,6 +89,14 @@ const moduleRoutes = [
   {
     path: '/architect-agent',
     route: architectAgentRoutes,
+  },
+  {
+    path: '/review-qa-agent',
+    route: reviewQAAgentRoutes,
+  },
+  {
+    path: '/openwork',
+    route: openworkRoutes,
   },
 ];
 
